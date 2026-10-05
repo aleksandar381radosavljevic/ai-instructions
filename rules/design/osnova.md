@@ -1,6 +1,11 @@
 ### Osnova design system
 - Build UI from Osnova components first. When something is missing, propose adding it to Osnova (`new-component` skill) instead of building a one-off in the app.
-- A project changes appearance only by overriding Osnova's tokens in its theme. Never restyle Osnova components by targeting their internal class names.
-- Components must hold up under any project theme: when tokens change, check WCAG AA contrast (4.5:1 for text, 3:1 for UI boundaries and focus indicators).
+- A project changes appearance only by overriding Osnova's six accent tokens in its theme (decision 0008). Never restyle Osnova components by targeting their internal class names.
+- Every component works in light and dark from tokens alone: never branch on the theme in component code or CSS. Neutral hover and pressed states use the `surface-hover` and `surface-pressed` overlay tokens, never an ad-hoc darker color.
+- Components must hold up under any project theme: when tokens change, check WCAG AA contrast (4.5:1 for text, 3:1 for UI boundaries and focus indicators) in both themes (`theme-audit` skill).
+- New or changed tokens go into `tokens.json` only; `tokens.css` and the Figma files are generated (`token-change` skill).
+- Floating UI (menus, tooltips, popovers, toasts) renders through Osnova's portal so it stays inside `ThemeScope`, never directly into `document.body`.
+- Links inside Osnova go through `LinkProvider`; Osnova never imports a router.
 - Icons only through Osnova's `Icon` component, by Lucide icon name.
 - System font stack only; never add web fonts.
+- Logo: below 48 px use the pixel-drawn versions (32, 24, 16), never a scaled master; never recolor the mark with a project accent.

@@ -24,7 +24,8 @@ ai-instructions/
 │   └── design/osnova.md
 ├── skills/                    Agent Skills (spec frontmatter only)
 │   ├── new-project/   new-component/   adr/
-│   └── staff-review/  retro/
+│   ├── staff-review/  retro/
+│   └── theme-audit/   token-change/   logo-design/
 ├── decisions/                 ADRs for this repo
 ├── templates/                 AGENTS.md and CLAUDE.md for new projects
 ├── app/claude-preferences.md  defaults for every Claude chat
@@ -43,7 +44,7 @@ ai-instructions/
 ## Use in a project
 
 ```sh
-npm i -D github:aleksandar381radosavljevic/ai-instructions#v0.1.0
+npm i -D github:aleksandar381radosavljevic/ai-instructions#v0.2.0
 npx ai-instructions init
 ```
 
@@ -75,6 +76,6 @@ Versions follow semver: patch for wording, minor for a new rule, skill or layer,
 
 These change the rules or the skills, so they are yours to decide:
 
-- **TypeScript or JavaScript** for Osnova and the apps?
+- **TypeScript or JavaScript** for the apps? For Osnova, decision 0017 proposes TypeScript.
 - **How do projects consume Osnova**: npm package, git dependency or workspace? Until this is written down, `new-project` stops and asks.
 - **Test runner and package manager**, for example Vitest and npm?

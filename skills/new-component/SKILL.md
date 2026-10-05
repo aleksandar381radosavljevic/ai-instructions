@@ -27,7 +27,8 @@ For components in Osnova itself (a shared API), wait for approval. For app-local
 
 ## 4. Verify
 - Tests, finding elements by role or label: it renders, keyboard interaction works, the disabled state holds, and the accessible name is right.
-- Check the component under at least two different project themes: nothing breaks and contrast still passes.
+- Check the component under at least two different project themes and in light and dark (`theme-audit` skill): nothing breaks and contrast still passes.
+- Floating parts (menus, tooltips, popovers) render through Osnova's portal so they inherit the theme scope; a trigger the component clones must accept a `ref`.
 - Lint, tests and build pass.
 
 ## 5. Document
