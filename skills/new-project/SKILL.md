@@ -10,13 +10,12 @@ Goal: a running app that already follows the shared rules, so every later sessio
 ## 1. Ask once, all together
 - Project name, and one sentence on what it does and for whom.
 - Brand colors: at least a primary, accent optional. Ask for the logo if there is one.
-- TypeScript or JavaScript, until the shared rules decide it.
 - Anything that should differ from the standard stack.
 
 Don't ask about anything the standard already decides.
 
 ## 2. Scaffold
-1. Create the app from Vite's React template. Check the current command in the Vite docs instead of relying on memory.
+1. Create the app from Vite's React TypeScript template (`react-ts`), with `strict: true`. Check the current command in the Vite docs instead of relying on memory.
 2. Add Osnova the way its README describes. If it isn't clear how projects consume Osnova, stop and ask. Never copy Osnova's source into the app.
 3. Add the shared rules:
    ```sh

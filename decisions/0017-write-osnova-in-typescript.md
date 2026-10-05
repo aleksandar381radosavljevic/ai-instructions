@@ -1,6 +1,6 @@
 # 0017. Write Osnova in TypeScript
 
-- Status: Proposed
+- Status: Superseded by 0018
 - Date: 2026-10-05
 
 ## Context

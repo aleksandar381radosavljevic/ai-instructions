@@ -11,7 +11,7 @@ description: Design and build a UI component the Osnova way, API first, styled w
 
 ## 2. Propose the API first
 Before writing code, show the user:
-- **Props** with defaults. Model visual options as one enum-like prop (`variant="primary"`, `size="sm"`), not boolean flags (`primary`, `small`) that can contradict each other.
+- **Props** as an exported TypeScript interface (`NameProps`), with defaults and English JSDoc on each prop. Model visual options as one enum-like prop (`variant="primary"`, `size="sm"`), not boolean flags (`primary`, `small`) that can contradict each other.
 - **States**: default, hover, active, `:focus-visible`, disabled, plus loading, error and empty where they apply.
 - **Accessibility**: the native element it renders, keyboard behavior, and what a screen reader announces.
 - **One rejected alternative** and why it lost.
@@ -19,7 +19,7 @@ Before writing code, show the user:
 For components in Osnova itself (a shared API), wait for approval. For app-local components, go ahead unless the choice is contested.
 
 ## 3. Build
-- `Name.jsx` or `Name.tsx` plus `Name.module.css`, co-located, following the existing structure.
+- `Name.tsx` plus `Name.module.css`, co-located, following the existing structure.
 - Style only with tokens. If a needed token doesn't exist, propose a new one instead of hard-coding a value.
 - Render the native element and pass through `className`, `ref`, `aria-*` and event props.
 - Icons only through Osnova's `Icon` component.

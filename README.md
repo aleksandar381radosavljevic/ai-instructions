@@ -76,6 +76,5 @@ Versions follow semver: patch for wording, minor for a new rule, skill or layer,
 
 These change the rules or the skills, so they are yours to decide:
 
-- **TypeScript or JavaScript** for the apps? For Osnova, decision 0017 proposes TypeScript.
 - **How do projects consume Osnova**: npm package, git dependency or workspace? Until this is written down, `new-project` stops and asks.
 - **Test runner and package manager**, for example Vitest and npm?
