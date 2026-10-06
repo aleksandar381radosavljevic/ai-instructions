@@ -1,6 +1,6 @@
 ---
 name: new-project
-description: Bootstrap a new web app the standard way, with Vite and React, the Osnova design system with a project-specific theme, and the shared rules from ai-instructions. Use when the user starts a new project or asks to set one up "the usual way". Don't use it for changes to an existing project.
+description: Bootstrap a new web app the standard way, with React (Vite for frontend-only apps, Next.js when the app needs its own server), the Osnova design system with a project-specific theme, and the shared rules from ai-instructions. Use when the user starts a new project or asks to set one up "the usual way". Don't use it for changes to an existing project.
 ---
 
 # New project
@@ -16,7 +16,11 @@ Goal: a running app that already follows the shared rules, so every later sessio
 Don't ask about anything the standard already decides.
 
 ## 2. Scaffold
-1. Create the app from Vite's React template. Check the current command in the Vite docs instead of relying on memory.
+1. Pick the scaffold:
+   - **Frontend only** (talks to existing APIs, no secrets of its own): Vite's React template.
+   - **Needs its own server** (its own API, server-only secrets, server rendering for search engines): Next.js App Router. Record why in the project setup ADR (step 4).
+
+   Check the current create command in the framework's docs instead of relying on memory.
 2. Add Osnova the way its README describes. If it isn't clear how projects consume Osnova, stop and ask. Never copy Osnova's source into the app.
 3. Add the shared rules:
    ```sh
