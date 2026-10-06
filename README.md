@@ -76,5 +76,5 @@ Versions follow semver: patch for wording, minor for a new rule, skill or layer,
 These change the rules or the skills, so they are yours to decide:
 
 - **TypeScript or JavaScript** for Osnova and the apps?
-- **How do projects consume Osnova**: npm package, git dependency or workspace? Until this is written down, `new-project` stops and asks.
+- ~~**How do projects consume Osnova**~~: decided 2026-10-06, a package on GitHub Packages (`@aleksandar381radosavljevic/osnova-react`); see the [design-system README](https://github.com/aleksandar381radosavljevic/design-system).
 - **Test runner and package manager**, for example Vitest and npm?
