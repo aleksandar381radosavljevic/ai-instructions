@@ -44,21 +44,21 @@ ai-instructions/
 ## Use in a project
 
 ```sh
-npm i -D github:aleksandar381radosavljevic/ai-instructions#v0.1.0
-npx ai-instructions init
+pnpm add -D github:aleksandar381radosavljevic/ai-instructions#v0.4.0
+pnpm exec ai-instructions init
 ```
 
 `init` creates `.ai-instructions.json`, `AGENTS.md`, `CLAUDE.md` (which imports `AGENTS.md`) and `.claude/settings.json`. Commit all four, then fill in the "This project" section of `AGENTS.md`.
 
-The default layers are `core`, `stacks/react` and `design/osnova`. To pick others, run `npx ai-instructions layers` and pass `--layers core,stacks/react`.
+The default layers are `core`, `stacks/react` and `design/osnova`. To pick others, run `pnpm exec ai-instructions layers` and pass `--layers core,stacks/react`.
 
 Keep projects honest in CI:
 
 ```yaml
-- run: npx ai-instructions sync --check
+- run: pnpm exec ai-instructions sync --check
 ```
 
-To upgrade, bump the tag in `package.json`, run `npm install` and `npx ai-instructions sync`, and review the diff.
+To upgrade, bump the tag in `package.json`, run `pnpm install` and `pnpm exec ai-instructions sync`, and review the diff.
 
 The CLI writes only three things: the block between the `ai-instructions` markers in `AGENTS.md`, a `CLAUDE.md` when none exists, and the `.env` deny rules in `.claude/settings.json`. Everything else in those files is yours.
 
@@ -76,6 +76,6 @@ Versions follow semver: patch for wording, minor for a new rule, skill or layer,
 
 These change the rules or the skills, so they are yours to decide:
 
-- **TypeScript or JavaScript** for Osnova and the apps?
+- ~~**TypeScript or JavaScript**~~: decided 2026-10-16, TypeScript with `strict` and `erasableSyntaxOnly`; see [decision 0010](decisions/0010-typescript-for-osnova-and-apps.md).
 - ~~**How do projects consume Osnova**~~: decided 2026-10-06, a package on GitHub Packages (`@aleksandar381radosavljevic/osnova-react`); see the [design-system README](https://github.com/aleksandar381radosavljevic/design-system).
-- **Test runner and package manager**, for example Vitest and npm?
+- ~~**Test runner and package manager**~~: decided 2026-10-16, Vitest and pnpm; see [decision 0011](decisions/0011-pnpm-and-vitest.md).
