@@ -28,7 +28,7 @@ Don't ask about anything the standard already decides.
    pnpm add -D github:aleksandar381radosavljevic/ai-instructions#<latest tag>
    pnpm exec ai-instructions init
    ```
-   `init` writes `.ai-instructions.json`, `AGENTS.md` (with the shared-rules block), `CLAUDE.md` and `.claude/settings.json`. Commit all four.
+   Run it after Osnova is installed: `init` adds `stacks/react` and `design/osnova` only when it finds them in `package.json`, so check the layers it reports. It writes `.ai-instructions.json`, `AGENTS.md` (with the shared-rules block), `CLAUDE.md` and `.claude/settings.json`. Commit all four.
 
 ## 3. Theme
 - Create the project theme by overriding Osnova's tokens. Derive hover, active and subtle shades from the brand colors instead of inventing new hues.

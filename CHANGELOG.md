@@ -2,6 +2,16 @@
 
 Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior.
 
+## 0.5.0 (2026-10-16)
+
+Breaking (decision 0012). After upgrading, run `ai-instructions sync` once in each project; `sync --check` fails until you do.
+
+- `init` writes `core` plus the layers it detects in `package.json` (`stacks/react` for React or Next.js, `design/osnova` for an Osnova package) instead of always adding React and Osnova. `--layers` still overrides.
+- `.ai-instructions.json` records the `version`. `sync` moves it to the running version and refuses to downgrade; `sync --check` fails when they differ. The CLI runs without installing (`pnpm dlx`, `npx`), so projects without `package.json` can use it.
+- `core`: removed the Serbian-conversation and "explain the why" rules; they are personal and now live only in `personal/preferences.md` (was `app/claude-preferences.md`). "Never invent commands" no longer assumes `package.json` scripts.
+- CLI: `ai-instructions personal` prints your preferences; `--install` writes them into `~/.claude/CLAUDE.md` between markers.
+- `npm run pack-skills` builds `dist/skills/<name>.zip` for upload and stamps `metadata.version`.
+
 ## 0.4.0 (2026-10-16)
 
 - `stacks/react`: TypeScript with `strict` and `erasableSyntaxOnly` (decision 0010); pnpm as the package manager and Vitest with Testing Library for tests (decision 0011).
