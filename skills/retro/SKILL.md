@@ -18,7 +18,8 @@ From this session, list:
 |---|---|
 | Project `AGENTS.md`, "This project" section | true only for this project |
 | Project `docs/decisions/` | a project decision (use the `adr` skill) |
-| ai-instructions `rules/core.md` | true for every project |
+| ai-instructions `personal/preferences.md` | how the user likes to work, in any project or chat |
+| ai-instructions `rules/core.md` | true for every project, whoever works on it |
 | ai-instructions `rules/stacks/<stack>.md` | true for every project on that stack |
 | ai-instructions `rules/design/osnova.md` | true wherever Osnova is used |
 | ai-instructions `skills/<name>/` | a repeatable multi-step procedure |

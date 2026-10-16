@@ -7,66 +7,75 @@ Shared rules, skills and decisions for the AI agents in all my projects.
 | What | Source | How it reaches the agent |
 |---|---|---|
 | Rules | `rules/` (layers) | a generated block in each project's `AGENTS.md`, read by Claude Code and other agents |
-| Skills | `skills/` | uploaded to your Claude account: Claude app, Cowork, cloud sessions, Claude Code |
-| App defaults | `app/claude-preferences.md` | pasted into your personal preferences in Claude |
+| Skills | `skills/` | zipped by `npm run pack-skills` and uploaded to your Claude account: Claude app, Cowork, cloud sessions, Claude Code |
+| Personal preferences | `personal/preferences.md` | pasted into your preferences in Claude, and installed into `~/.claude/CLAUDE.md` for local Claude Code |
 | Secret guard | generated `.claude/settings.json` | Claude Code permission rules |
 | Decisions | `decisions/` here, `docs/decisions/` in projects | read by people and agents |
 
-The reasoning behind this split is in [`decisions/`](decisions/).
+Rules describe the project, whoever works on it. Preferences describe you, in any project or chat. The reasoning behind this split is in [`decisions/`](decisions/), most recently [0012](decisions/0012-stack-agnostic-consumption.md).
 
 ## Layout
 
 ```text
 ai-instructions/
-├── rules/                     always-on rules, one file per layer
-│   ├── core.md
-│   ├── stacks/react.md
-│   └── design/osnova.md
+├── rules/                     always-on project rules, one file per layer
+│   ├── core.md                every project, any language
+│   ├── stacks/react.md        React, Vite or Next.js
+│   └── design/osnova.md       projects that use Osnova
+├── personal/preferences.md    how you like to work; the only copy
 ├── skills/                    Agent Skills (spec frontmatter only)
 │   ├── new-project/   new-component/   adr/
 │   ├── staff-review/  retro/
 │   └── principal-designer/
 ├── decisions/                 ADRs for this repo
 ├── templates/                 AGENTS.md and CLAUDE.md for new projects
-├── app/claude-preferences.md  defaults for every Claude chat
-├── bin/ai-instructions.mjs    CLI: init, sync, sync --check, layers
-└── scripts/                   self-check and smoke test (CI)
+├── bin/ai-instructions.mjs    CLI: init, sync, sync --check, layers, personal
+└── scripts/                   self-check, smoke test (CI) and pack-skills
 ```
-
-## One-time setup
-
-1. Replace `OWNER` with your GitHub username. `npm run check` lists every place it appears.
-2. Push to GitHub and tag the release: `git tag v0.1.0 && git push --tags`.
-3. Paste `app/claude-preferences.md` into your personal preferences in Claude's settings.
-4. Upload the skills: zip each folder under `skills/` and add it in the skills settings on claude.ai.
-5. Read `decisions/` and flip each ADR to `Accepted`, or push back.
 
 ## Use in a project
 
+Any repository works, with or without `package.json`. The CLI needs Node 18+ on the machine.
+
 ```sh
-pnpm add -D github:aleksandar381radosavljevic/ai-instructions#v0.4.0
+# Any repository: run it without installing
+pnpm dlx github:aleksandar381radosavljevic/ai-instructions#v0.5.0 init
+
+# Node projects can pin it as a devDependency instead
+pnpm add -D github:aleksandar381radosavljevic/ai-instructions#v0.5.0
 pnpm exec ai-instructions init
 ```
 
 `init` creates `.ai-instructions.json`, `AGENTS.md`, `CLAUDE.md` (which imports `AGENTS.md`) and `.claude/settings.json`. Commit all four, then fill in the "This project" section of `AGENTS.md`.
 
-The default layers are `core`, `stacks/react` and `design/osnova`. To pick others, run `pnpm exec ai-instructions layers` and pass `--layers core,stacks/react`.
+Layers start from `core`. `init` adds `stacks/react` when `react`, `react-dom` or `next` is in `package.json`, and `design/osnova` when an Osnova package is. To choose yourself, run `ai-instructions layers` and pass `--layers core,stacks/react`.
 
-Keep projects honest in CI:
+`.ai-instructions.json` records the version the rules came from. Keep projects honest in CI:
 
 ```yaml
+# devDependency
 - run: pnpm exec ai-instructions sync --check
+# without installing: run the pinned version
+- run: pnpm dlx "github:aleksandar381radosavljevic/ai-instructions#v$(node -p "require('./.ai-instructions.json').version")" sync --check
 ```
 
-To upgrade, bump the tag in `package.json`, run `pnpm install` and `pnpm exec ai-instructions sync`, and review the diff.
+To upgrade, run `sync` with the newer version (bump the tag in `package.json` first if it is a devDependency) and review the diff. `sync` refuses to go back to an older version.
 
-The CLI writes only three things: the block between the `ai-instructions` markers in `AGENTS.md`, a `CLAUDE.md` when none exists, and the `.env` deny rules in `.claude/settings.json`. Everything else in those files is yours.
+In a project, the CLI writes only: the block between the `ai-instructions` markers in `AGENTS.md`, the version in `.ai-instructions.json`, a `CLAUDE.md` when none exists, and the `.env` deny rules in `.claude/settings.json`. Everything else in those files is yours.
+
+## Personal preferences and skills
+
+After changing `personal/preferences.md`:
+- paste it into your personal preferences in Claude's settings (`ai-instructions personal` prints it);
+- run `ai-instructions personal --install` to update the block in `~/.claude/CLAUDE.md`.
+
+After changing a skill, run `npm run pack-skills` (or `npm run pack-skills -- retro adr`) and upload the zips from `dist/skills/` in the skills settings on claude.ai. Each uploaded `SKILL.md` carries `metadata.version`, so you can tell which release is on your account.
 
 ## How it grows
 
 At the end of a session that taught you something, run the `retro` skill. It sorts each lesson into project rules, shared rules, skills, decisions or tooling, and proposes the exact text. Nothing changes without your approval. The bar a shared rule has to clear is in [decision 0004](decisions/0004-every-rule-earns-its-place.md).
 
-Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior. Every release gets a `CHANGELOG.md` entry and a `vX.Y.Z` tag on the merge commit in `main`, matching `package.json`.
+Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior. Until 1.0.0, a breaking change bumps the minor version instead (decision 0012). Every release gets a `CHANGELOG.md` entry and a `vX.Y.Z` tag on the merge commit in `main`, matching `package.json`.
 
 ## Develop
 
@@ -79,3 +88,4 @@ These change the rules or the skills, so they are yours to decide:
 - ~~**TypeScript or JavaScript**~~: decided 2026-10-16, TypeScript with `strict` and `erasableSyntaxOnly`; see [decision 0010](decisions/0010-typescript-for-osnova-and-apps.md).
 - ~~**How do projects consume Osnova**~~: decided 2026-10-06, a package on GitHub Packages (`@aleksandar381radosavljevic/osnova-react`); see the [design-system README](https://github.com/aleksandar381radosavljevic/design-system).
 - ~~**Test runner and package manager**~~: decided 2026-10-16, Vitest and pnpm; see [decision 0011](decisions/0011-pnpm-and-vitest.md).
+- **Accept or challenge decisions 0001–0007 and 0009**: they are still `Proposed`, while the CLI is built on them. Accepting them is the step to 1.0.0.
