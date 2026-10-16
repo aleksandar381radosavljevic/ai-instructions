@@ -66,7 +66,7 @@ The CLI writes only three things: the block between the `ai-instructions` marker
 
 At the end of a session that taught you something, run the `retro` skill. It sorts each lesson into project rules, shared rules, skills, decisions or tooling, and proposes the exact text. Nothing changes without your approval. The bar a shared rule has to clear is in [decision 0004](decisions/0004-every-rule-earns-its-place.md).
 
-Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior. Every release gets a `CHANGELOG.md` entry.
+Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior. Every release gets a `CHANGELOG.md` entry and a `vX.Y.Z` tag on the merge commit in `main`, matching `package.json`.
 
 ## Develop
 
