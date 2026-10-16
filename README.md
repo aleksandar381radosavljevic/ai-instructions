@@ -86,11 +86,13 @@ After changing a skill, run `npm run pack-skills` (or `npm run pack-skills -- re
 
 At the end of a session that taught you something, run the `retro` skill. It sorts each lesson into project rules, shared rules, skills, decisions or tooling, and proposes the exact text. Nothing changes without your approval. The bar a shared rule has to clear is in [decision 0004](decisions/0004-every-rule-earns-its-place.md).
 
-Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior. Until 1.0.0, a breaking change bumps the minor version instead (decision 0012). Every release gets a `CHANGELOG.md` entry and a `vX.Y.Z` tag on the merge commit in `main`, matching `package.json`.
+Commits follow Conventional Commits, and the type sets the version (decision 0014): `fix:` for rule wording, `feat:` for a new rule, skill or layer, `feat!:` for a removed or changed rule that changes agent behavior. `docs:`, `chore:`, `ci:` and `test:` don't release. Until 1.0.0, a breaking change bumps the minor version (decision 0012).
+
+release-please keeps a release PR open on `main` with the next version and its `CHANGELOG.md` entry. Merging it tags `vX.Y.Z`, creates the GitHub release and attaches the skill zips, so upload them from the release page. Release PRs don't run the `check` workflow on their own; it runs on `main` after the merge.
 
 ## Develop
 
-`npm test` checks skills against the Agent Skills spec, the rules budget, ADR format and the changelog, then smoke-tests the CLI in throwaway projects. CI runs it on every push.
+`npm test` checks skills against the Agent Skills spec, the rules budget, ADR format and the changelog, then smoke-tests the CLI in throwaway projects. CI runs it on every push, and on pull requests also checks commit messages with `scripts/check-commits.mjs`.
 
 ## Open questions
 
