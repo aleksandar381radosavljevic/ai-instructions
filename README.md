@@ -24,9 +24,7 @@ ai-instructions/
 │   └── design/osnova.md       projects that use Osnova
 ├── personal/preferences.md    how you like to work; the only copy
 ├── skills/                    Agent Skills (spec frontmatter only)
-│   ├── new-project/   new-component/   adr/
-│   ├── staff-review/  retro/
-│   └── principal-designer/
+│   └── <name>/references/     stack-specific steps, one file per stack layer
 ├── decisions/                 ADRs for this repo
 ├── templates/                 AGENTS.md and CLAUDE.md for new projects
 ├── bin/ai-instructions.mjs    CLI: init, sync, sync --check, layers, personal
@@ -39,10 +37,10 @@ Any repository works, with or without `package.json`. The CLI needs Node 18+ on 
 
 ```sh
 # Any repository: run it without installing
-pnpm dlx github:aleksandar381radosavljevic/ai-instructions#v0.5.0 init
+pnpm dlx github:aleksandar381radosavljevic/ai-instructions#v0.6.0 init
 
 # Node projects can pin it as a devDependency instead
-pnpm add -D github:aleksandar381radosavljevic/ai-instructions#v0.5.0
+pnpm add -D github:aleksandar381radosavljevic/ai-instructions#v0.6.0
 pnpm exec ai-instructions init
 ```
 
@@ -62,6 +60,19 @@ Layers start from `core`. `init` adds `stacks/react` when `react`, `react-dom` o
 To upgrade, run `sync` with the newer version (bump the tag in `package.json` first if it is a devDependency) and review the diff. `sync` refuses to go back to an older version.
 
 In a project, the CLI writes only: the block between the `ai-instructions` markers in `AGENTS.md`, the version in `.ai-instructions.json`, a `CLAUDE.md` when none exists, and the `.env` deny rules in `.claude/settings.json`. Everything else in those files is yours.
+
+## Stacks and roles
+
+Supported stacks are the layers under `rules/stacks/`: today React. Vue and .NET Web API come next, each starting with a stack ADR that decides libraries, styling, architecture and folder layout once for every project on it.
+
+Skills are grouped by role. A skill holds the procedure; where a step differs by stack, it reads `references/<stack>.md` for the project's stack (decision 0013).
+
+| Role | Skills |
+|---|---|
+| Developer | `new-project`, `staff-review` |
+| Designer | `principal-designer`, `new-component` |
+| Tester | coming next |
+| Everyone | `adr`, `retro` |
 
 ## Personal preferences and skills
 

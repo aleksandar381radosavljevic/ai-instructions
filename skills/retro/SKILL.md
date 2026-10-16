@@ -23,6 +23,7 @@ From this session, list:
 | ai-instructions `rules/stacks/<stack>.md` | true for every project on that stack |
 | ai-instructions `rules/design/osnova.md` | true wherever Osnova is used |
 | ai-instructions `skills/<name>/` | a repeatable multi-step procedure |
+| ai-instructions `skills/<name>/references/<stack>.md` | a step of a skill that differs by stack |
 | ai-instructions `decisions/` | a decision that holds across projects |
 | Tooling: a lint rule, test or permission | it can be enforced mechanically (prefer this) |
 | Nowhere | a one-off, or something agents already do by default |

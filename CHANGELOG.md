@@ -2,6 +2,11 @@
 
 Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior.
 
+## 0.6.0 (2026-10-16)
+
+- Skills keep stack-specific steps in `references/<stack>.md`, named after a rule layer (decision 0013). `new-project` and `new-component` moved their React steps into `references/react.md`; `new-project` asks for the stack and offers only stacks that have a reference.
+- `npm run check`: the 100-line budget applies to each set of layers a project can load (core, one stack, one design system) instead of all layers together, and a reference without a matching stack layer fails.
+
 ## 0.5.0 (2026-10-16)
 
 Breaking (decision 0012). After upgrading, run `ai-instructions sync` once in each project; `sync --check` fails until you do.
