@@ -24,7 +24,8 @@ ai-instructions/
 │   └── design/osnova.md
 ├── skills/                    Agent Skills (spec frontmatter only)
 │   ├── new-project/   new-component/   adr/
-│   └── staff-review/  retro/
+│   ├── staff-review/  retro/
+│   └── principal-designer/
 ├── decisions/                 ADRs for this repo
 ├── templates/                 AGENTS.md and CLAUDE.md for new projects
 ├── app/claude-preferences.md  defaults for every Claude chat
