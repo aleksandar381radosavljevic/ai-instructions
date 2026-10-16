@@ -126,7 +126,8 @@ function checkDecisions() {
 
 function checkRelease() {
   const { version } = JSON.parse(read(join(ROOT, 'package.json')));
-  if (!new RegExp(`^## ${version.replace(/\./g, '\\.')}\\b`, 'm').test(read(join(ROOT, 'CHANGELOG.md')))) {
+  // Hand-written entries are "## x.y.z", release-please writes "## [x.y.z](compare link)" (decisions/0014).
+  if (!new RegExp(`^## \\[?${version.replace(/\./g, '\\.')}\\b`, 'm').test(read(join(ROOT, 'CHANGELOG.md')))) {
     errors.push(`CHANGELOG.md: no "## ${version}" entry for the version in package.json`);
   }
   for (const file of walk(ROOT).filter((path) => path.endsWith('.md'))) {

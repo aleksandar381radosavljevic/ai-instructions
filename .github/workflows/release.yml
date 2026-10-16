@@ -1,0 +1,28 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - id: release
+        uses: googleapis/release-please-action@v5
+      - if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v4
+      - if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - if: ${{ steps.release.outputs.release_created }}
+        run: |
+          npm run pack-skills
+          gh release upload "${{ steps.release.outputs.tag_name }}" dist/skills/*.zip
+        env:
+          GH_TOKEN: ${{ github.token }}

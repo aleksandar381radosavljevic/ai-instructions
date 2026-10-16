@@ -38,6 +38,6 @@ Prefer sharpening an existing rule to adding a new one. The shared layers have a
 
 ## 4. Propose, then apply
 - Show a table of item, destination and the exact text or diff. Change nothing before the user approves.
-- After approval, apply the changes. In ai-instructions, also add a `CHANGELOG.md` entry and suggest the version bump: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior.
+- After approval, apply the changes. In ai-instructions, pick the commit type that sets the version: `fix:` for wording, `feat:` for a new rule, skill or layer, `feat!:` for a removed or changed rule that changes agent behavior. release-please writes the changelog and the version (decision 0014).
 - If you can't write to the ai-instructions repo from here, output the exact patch for the user to apply.
 - If a skill changed, remind the user to re-upload it to their Claude account.

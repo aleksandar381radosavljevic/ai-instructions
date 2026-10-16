@@ -3,6 +3,7 @@
 - Before anything hard to reverse (a new dependency, pattern, public API, data model or folder structure), propose 2–3 options with trade-offs and a recommendation, then wait for a decision.
 - Record significant decisions as ADRs in `docs/decisions/` with the `adr` skill. Read the relevant ADR before proposing to change what it covers.
 - Search the codebase before adding a utility, hook or component; extend what exists instead of adding a near-duplicate.
+- Commit messages follow Conventional Commits: `fix:` for a patch, `feat:` for a minor, `!` for a breaking change.
 - Keep changes scoped to the task. Report unrelated problems you notice instead of fixing them silently.
 
 ### Definition of done
