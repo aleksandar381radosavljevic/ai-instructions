@@ -2,7 +2,7 @@
 // Self-check for this repo; CI runs it on every push. Zero dependencies.
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -14,7 +14,7 @@ const read = (path) => readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
 // Agent Skills spec: anything else makes claude.ai reject the upload (decisions/0003).
 const SPEC_KEYS = new Set(['name', 'description', 'license', 'compatibility', 'metadata', 'allowed-tools']);
 const SKILL_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-const RULES_BUDGET = 100; // lines for all layers together (decisions/0004)
+const RULES_BUDGET = 100; // lines a project can load at once: core, one stack and one design system (decisions/0004, 0013)
 const ADR_FILE = /^\d{4}-[a-z0-9]+(-[a-z0-9]+)*\.md$/;
 const ADR_STATUS = /^- Status: (Proposed|Accepted|Deprecated|Superseded by \d{4})$/m;
 
@@ -73,6 +73,15 @@ function checkSkills() {
     if (description && !/\bUse\b/.test(description)) warnings.push(`${rel(file)}: description should say when to use the skill`);
     const lines = body.split('\n').length;
     if (lines > 500) warnings.push(`${rel(file)}: ${lines} lines; keep SKILL.md under 500 and move detail into referenced files`);
+    const referencesDir = join(dir, name, 'references');
+    if (existsSync(referencesDir)) {
+      for (const reference of readdirSync(referencesDir)) {
+        const stack = `stacks/${reference.replace(/\.md$/, '')}`;
+        if (!existsSync(join(ROOT, 'rules', `${stack}.md`))) {
+          errors.push(`${rel(join(referencesDir, reference))}: references are named after a stack layer, and rules/${stack}.md doesn't exist (decisions/0013)`);
+        }
+      }
+    }
     for (const [, target] of body.matchAll(/\]\(([^)\s#]+)\)/g)) {
       if (!/^[a-z]+:/.test(target) && !existsSync(join(dir, name, target))) errors.push(`${rel(file)}: broken link ${target}`);
     }
@@ -81,18 +90,28 @@ function checkSkills() {
 }
 
 function checkRules() {
-  const files = walk(join(ROOT, 'rules')).filter((file) => file.endsWith('.md'));
-  let total = 0;
+  const dir = join(ROOT, 'rules');
+  const files = walk(dir).filter((file) => file.endsWith('.md'));
+  const lines = {};
   for (const file of files) {
     const text = read(file);
     if (!text.startsWith('### ')) errors.push(`${rel(file)}: must start with a "### " heading (layers are nested under "## Shared rules")`);
     if (text.includes('ai-instructions:begin') || text.includes('ai-instructions:end')) errors.push(`${rel(file)}: must not contain block markers`);
-    total += text.trim().split('\n').length;
+    lines[relative(dir, file).slice(0, -3).split(sep).join('/')] = text.trim().split('\n').length;
   }
-  if (total > RULES_BUDGET) {
-    errors.push(`rules/: all layers together are ${total} lines; the budget is ${RULES_BUDGET}. Remove or merge rules (decisions/0004).`);
+  const group = (prefix) => [null, ...Object.keys(lines).filter((layer) => layer.startsWith(prefix))];
+  let largest = { total: 0, layers: [] };
+  for (const stack of group('stacks/')) {
+    for (const design of group('design/')) {
+      const layers = ['core', stack, design].filter(Boolean);
+      const total = layers.reduce((sum, layer) => sum + (lines[layer] ?? 0), 0);
+      if (total > largest.total) largest = { total, layers };
+    }
   }
-  return { count: files.length, total };
+  if (largest.total > RULES_BUDGET) {
+    errors.push(`rules/: ${largest.layers.join(' + ')} is ${largest.total} lines; the budget is ${RULES_BUDGET}. Remove or merge rules (decisions/0004).`);
+  }
+  return { count: files.length, ...largest };
 }
 
 function checkDecisions() {
@@ -125,5 +144,5 @@ for (const warning of warnings) console.log(`! ${warning}`);
 for (const error of errors) console.error(`✗ ${error}`);
 if (errors.length > 0) process.exit(1);
 console.log(
-  `✓ v${version}: ${skills} skills, ${rules.count} rule layers (${rules.total}/${RULES_BUDGET} lines), ${decisions} decisions`,
+  `✓ v${version}: ${skills} skills, ${rules.count} rule layers (largest set ${rules.total}/${RULES_BUDGET} lines), ${decisions} decisions`,
 );

@@ -19,9 +19,10 @@ Before writing code, show the user:
 For components in Osnova itself (a shared API), wait for approval. For app-local components, go ahead unless the choice is contested.
 
 ## 3. Build
-- `Name.jsx` or `Name.tsx` plus `Name.module.css`, co-located, following the existing structure.
+- Read the reference for the project's stack: each `stacks/<stack>` layer in `.ai-instructions.json` maps to `references/<stack>.md` (today: [React](references/react.md)). If there is none, follow the stack's rule layer and say that the skill has no reference for it yet.
+- Follow the existing structure, co-locating the component, its styles and its tests.
 - Style only with tokens. If a needed token doesn't exist, propose a new one instead of hard-coding a value.
-- Render the native element and pass through `className`, `ref`, `aria-*` and event props.
+- Render the native element and pass through the stack's usual attributes, refs and events.
 - Icons only through Osnova's `Icon` component.
 - Respect `prefers-reduced-motion` for any animation.
 
