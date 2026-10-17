@@ -2,6 +2,14 @@
 
 Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior.
 
+## [0.8.0](https://github.com/aleksandar381radosavljevic/ai-instructions/compare/v0.7.0...v0.8.0) (2026-10-17)
+
+
+### Features
+
+* add test-plan and qa-check tester skills with React references ([e26030d](https://github.com/aleksandar381radosavljevic/ai-instructions/commit/e26030d2d5e1c33ccabbda12bf8d153aa86f09b2))
+* add test-plan and qa-check tester skills with React references ([d644c98](https://github.com/aleksandar381radosavljevic/ai-instructions/commit/d644c987e5eefeaa5dc0d4322dfd882746e29a89))
+
 ## [0.7.0](https://github.com/aleksandar381radosavljevic/ai-instructions/compare/v0.6.0...v0.7.0) (2026-10-17)
 
 
