@@ -6,4 +6,4 @@
 - Semantic elements first (`button`, `a`, `label`, lists, landmarks); ARIA only where native semantics fall short. Everything interactive works by keyboard and has a visible `:focus-visible` state.
 - No effects for derived state or event handling: compute during render or in the handler. `useEffect` is for syncing with external systems.
 - Components that render UI don't fetch data; data access lives in hooks or services.
-- Tests use Vitest and Testing Library and find elements the way users do (role, label, text), not by class names.
+- Tests use Vitest and Testing Library and find elements the way users do (role, label, text), not by class names. Fake HTTP with MSW, never by mocking `fetch` or the API module; end-to-end tests use Playwright.
