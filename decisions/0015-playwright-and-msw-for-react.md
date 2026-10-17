@@ -1,6 +1,6 @@
 # 0015. Playwright for end-to-end tests and MSW for network fakes in React projects
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-17
 
 ## Context
@@ -12,7 +12,7 @@ The tester skills (`test-plan`, `qa-check`) need a standard for the levels above
 3. **No end-to-end layer, Vitest and MSW only**: fewest tools, but nothing checks the running app in a browser.
 
 ## Decision
-Option 1.
+Option 1, chosen by the owner on 2026-10-17.
 
 ## Why
 Most risks are caught cheapest in component tests with the network faked at its boundary, and MSW does that without coupling tests to how the app calls its API. The few journeys whose failure would be an incident need a real browser, and Playwright is the same tool an agent uses in `qa-check`, so one tool covers automated and exploratory checks.
