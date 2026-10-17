@@ -71,7 +71,7 @@ Skills are grouped by role. A skill holds the procedure; where a step differs by
 |---|---|
 | Developer | `new-project`, `staff-review` |
 | Designer | `principal-designer`, `new-component` |
-| Tester | coming next |
+| Tester | `test-plan`, `qa-check` |
 | Everyone | `adr`, `retro` |
 
 ## Personal preferences and skills
