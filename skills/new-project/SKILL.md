@@ -9,7 +9,7 @@ Goal: a running app that already follows the shared rules, so every later sessio
 
 ## 1. Ask once, all together
 - Project name, and one sentence on what it does and for whom.
-- The stack: frontend or backend, then one of the stacks that has a file in `references/` (today: [React](references/react.md)). If the user wants a stack without a reference, say it isn't supported yet and stop; supporting it starts with a stack ADR in ai-instructions.
+- The stack: frontend or backend, then one of the stacks that has a file in `references/` (today: [React](references/react.md) and [Vue](references/vue.md)). If the user wants a stack without a reference, say it isn't supported yet and stop; supporting it starts with a stack ADR in ai-instructions.
 - For a UI app: brand colors (at least a primary, accent optional) and the logo if there is one.
 - Anything that should differ from the standard stack.
 
@@ -30,7 +30,7 @@ Node projects may install it as a devDependency instead, as the reference says. 
 ## 4. Theme (UI apps on Osnova)
 - Create the project theme by overriding Osnova's tokens. Derive hover, active and subtle shades from the brand colors instead of inventing new hues.
 - Check WCAG AA contrast for text on every surface and for focus indicators. If a brand color fails, propose the closest passing shade and explain why.
-- Show the user one screen with a few Osnova components in the new theme before going further.
+- Show the user one screen with a few components in the new theme before going further.
 
 ## 5. Project rules
 - Fill in the "This project" section of `AGENTS.md`: purpose, where the theme lives, and nothing an agent can read from the code.

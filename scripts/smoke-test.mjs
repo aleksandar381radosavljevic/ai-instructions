@@ -58,6 +58,13 @@ const tests = {
     assert.match(read(dir, 'AGENTS.md'), /### React[\s\S]*### Osnova/);
   },
 
+  'init detects Vue and Nuxt'() {
+    const dir = project({}, { name: 'web', dependencies: { nuxt: '4' } });
+    ok(run(dir, 'init'));
+    assert.deepEqual(JSON.parse(read(dir, '.ai-instructions.json')).layers, ['core', 'stacks/vue']);
+    assert.match(read(dir, 'AGENTS.md'), /### Vue/);
+  },
+
   'init works without package.json'() {
     const dir = project({}, null);
     ok(run(dir, 'init'));
