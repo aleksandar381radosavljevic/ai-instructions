@@ -1,6 +1,6 @@
 # 0016. The Vue stack
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-25
 
 ## Context
@@ -24,7 +24,7 @@ Defaults that weren't contested, mirroring the React stack: TypeScript per decis
 3. **PrimeVue**: styled components whose look has to be overridden.
 
 ## Decision
-Styling 1, component tests 2, widgets 1.
+Styling 1, component tests 2, widgets 1, chosen by the owner on 2026-10-26.
 
 ## Why
 What has to be shared across stacks is the tokens, not the styling mechanism, so Vue keeps its own idiom. Vue Test Utils is the official, actively maintained library, while the Testing Library wrapper hasn't been released since May 2024; the lost role queries are covered by a rule to select by what users perceive or by `data-test`, never by styling classes. Keyboard and ARIA behavior of complex widgets is where hand-written components go wrong most, and headless primitives solve it without bringing a look of their own.
@@ -34,4 +34,5 @@ What has to be shared across stacks is the tokens, not the styling mechanism, so
 - `design/osnova` says which of its rules apply to React only.
 - `new-project`, `new-component`, `test-plan` and `qa-check` gain `references/vue.md`.
 - `stacks/vue` and the `test-plan` reference spell out selectors without role queries; `staff-review` should flag class-based selectors in Vue tests.
+- Components the first Vue project builds on Reka UI and tokens are the seed of a future `osnova-vue`; extract them when a second Vue project starts (Osnova decision to follow).
 - Revisit `vitest-browser-vue` (option 3) if Vue tests drift to implementation details.
