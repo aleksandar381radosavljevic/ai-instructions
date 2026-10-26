@@ -6,4 +6,4 @@
 - Semantic elements first; ARIA only where native semantics fall short. Dialogs, menus, comboboxes, tabs and similar widgets build on Reka UI primitives, styled with tokens. Everything interactive works by keyboard and has a visible `:focus-visible` state.
 - `computed` for derived state, never a `watch` that copies one ref into another. Shared state lives in Pinia stores; components that render UI don't fetch data, composables or services do.
 - Icons from `@lucide/vue`, by icon name.
-- Tests use Vitest and Testing Library (`@testing-library/vue`) and find elements by role, label or text. Fake HTTP with MSW, never by mocking `fetch` or the API module; end-to-end tests use Playwright.
+- Tests use Vitest and Vue Test Utils. Select by what users perceive (element plus accessible name, label, text) or a `data-test` attribute, never by styling classes or component internals; assert on rendered output and emitted events. Fake HTTP with MSW, never by mocking `fetch` or the API module; end-to-end tests use Playwright.
