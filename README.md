@@ -63,7 +63,7 @@ In a project, the CLI writes only: the block between the `ai-instructions` marke
 
 ## Stacks and roles
 
-Supported stacks are the layers under `rules/stacks/`: today React and Vue. .NET Web API comes next, starting with a stack ADR that decides libraries, styling, architecture and folder layout once for every project on it.
+Supported stacks are the layers under `rules/stacks/`: today React, Vue and .NET Web API. A new stack starts with a stack ADR that decides libraries, styling, architecture and folder layout once for every project on it.
 
 Skills are grouped by role. A skill holds the procedure; where a step differs by stack, it reads `references/<stack>.md` for the project's stack (decision 0013).
 

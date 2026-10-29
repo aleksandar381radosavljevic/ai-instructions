@@ -96,10 +96,29 @@ function readPackageJson() {
   return existsSync(path) ? readJson(path) : null;
 }
 
+// A web project in the root or one folder down (src/Api/Api.csproj) means an ASP.NET Core API (decisions/0017).
+function findWebCsproj(dir = CWD, depth = 0) {
+  for (const entry of readdirSync(dir)) {
+    if (['node_modules', 'bin', 'obj', '.git'].includes(entry)) continue;
+    const path = join(dir, entry);
+    if (entry.endsWith('.csproj') && /Sdk="Microsoft\.NET\.Sdk\.Web"/.test(read(path))) return relative(CWD, path);
+    if (depth < 2 && statSync(path).isDirectory()) {
+      const found = findWebCsproj(path, depth + 1);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
 function detectLayers() {
   const pkg = readPackageJson() ?? {};
   const deps = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies, ...pkg.peerDependencies });
   const layers = ['core'];
+  const csproj = findWebCsproj();
+  if (csproj) {
+    layers.push('stacks/dotnet');
+    say('•', `Detected an ASP.NET Core project (${csproj}): adding stacks/dotnet`);
+  }
   for (const { layer, matches } of DETECTED_LAYERS) {
     const dep = deps.find(matches);
     if (dep) {

@@ -23,7 +23,7 @@ Use the lowest level that can still catch the failure:
 - **Component or integration**: what a user does on one screen or endpoint, with the network or database faked at its boundary.
 - **End-to-end**: a few critical journeys through the real app. Each one is slow and brittle, so keep them for paths whose failure would be a production incident.
 
-Open `references/<stack>.md` for the project's stack (each `stacks/<stack>` layer in `.ai-instructions.json`; today: [React](references/react.md) and [Vue](references/vue.md)) for the tools and conventions at each level. If there is none, use the project's existing test setup and say the skill has no reference for it yet.
+Open `references/<stack>.md` for the project's stack (each `stacks/<stack>` layer in `.ai-instructions.json`; today: [React](references/react.md), [Vue](references/vue.md) and [.NET Web API](references/dotnet.md)) for the tools and conventions at each level. If there is none, use the project's existing test setup and say the skill has no reference for it yet.
 
 ## 3. Show the plan
 Before writing tests for a non-trivial change, show a short table: risk, level, case. Say what you deliberately won't test and why. Proceed unless the user objects.
