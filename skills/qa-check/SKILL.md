@@ -12,7 +12,7 @@ Code review reads the change; this skill uses the product. Never report somethin
 - Write a short charter: "Check <area> for <risks>". Keep the session to that charter.
 
 ## 2. Run the app
-Start it with the project's own scripts. Open `references/<stack>.md` for the project's stack (today: [React](references/react.md)) for how to drive it. If no browser or HTTP tool is available, say so and stop; don't simulate a QA session from reading code.
+Start it with the project's own scripts. Open `references/<stack>.md` for the project's stack (today: [React](references/react.md) and [Vue](references/vue.md)) for how to drive it. If no browser or HTTP tool is available, say so and stop; don't simulate a QA session from reading code.
 
 ## 3. Explore
 For each risk in the charter:

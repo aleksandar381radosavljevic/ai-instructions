@@ -16,6 +16,7 @@ const CONFIG_FILE = '.ai-instructions.json';
 // init starts from core and adds a layer when package.json shows its stack (decisions/0012).
 const DETECTED_LAYERS = [
   { layer: 'stacks/react', matches: (dep) => ['react', 'react-dom', 'next'].includes(dep) },
+  { layer: 'stacks/vue', matches: (dep) => ['vue', 'nuxt'].includes(dep) },
   { layer: 'design/osnova', matches: (dep) => /(^|\/)osnova(-|$)/.test(dep) },
 ];
 const BEGIN = '<!-- ai-instructions:begin -->';

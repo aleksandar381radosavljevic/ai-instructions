@@ -1,12 +1,12 @@
 ---
 name: new-component
-description: Design and build a UI component the Osnova way, API first, styled with CSS Modules and design tokens only, with every state and theme covered and accessible by default. Use when the user asks for a new component or variant, or when the same UI pattern shows up a second time and should become reusable.
+description: Design and build a UI component the Osnova way, API first, styled with design tokens only in the stack's styling convention, with every state and theme covered and accessible by default. Use when the user asks for a new component or variant, or when the same UI pattern shows up a second time and should become reusable.
 ---
 
 # New component
 
 ## 1. Look before you build
-- Search Osnova and the app for something that already covers this. Prefer a new variant or prop on an existing component over a new component.
+- Search Osnova (React), the project's primitives (Reka UI in Vue) and the app for something that already covers this. Prefer a new variant or prop on an existing component over a new component.
 - Read the token definitions and one or two existing components, and copy their conventions: file layout, naming, exports, tests, docs.
 
 ## 2. Propose the API first
@@ -19,11 +19,11 @@ Before writing code, show the user:
 For components in Osnova itself (a shared API), wait for approval. For app-local components, go ahead unless the choice is contested.
 
 ## 3. Build
-- Read the reference for the project's stack: each `stacks/<stack>` layer in `.ai-instructions.json` maps to `references/<stack>.md` (today: [React](references/react.md)). If there is none, follow the stack's rule layer and say that the skill has no reference for it yet.
+- Read the reference for the project's stack: each `stacks/<stack>` layer in `.ai-instructions.json` maps to `references/<stack>.md` (today: [React](references/react.md) and [Vue](references/vue.md)). If there is none, follow the stack's rule layer and say that the skill has no reference for it yet.
 - Follow the existing structure, co-locating the component, its styles and its tests.
 - Style only with tokens. If a needed token doesn't exist, propose a new one instead of hard-coding a value.
 - Render the native element and pass through the stack's usual attributes, refs and events.
-- Icons only through Osnova's `Icon` component.
+- Icons as the stack's rules say: Osnova's `Icon` component in React, `@lucide/vue` in Vue.
 - Respect `prefers-reduced-motion` for any animation.
 
 ## 4. Verify
