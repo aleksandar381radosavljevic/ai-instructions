@@ -4,8 +4,8 @@ Decision 0017. Rule layer: `stacks/dotnet`.
 
 | Level | Tool | Where |
 |---|---|---|
-| Unit | xUnit v3 | `tests/<Name>.Tests/`, only for logic with real branches (pricing, rules, parsing) |
-| Endpoint (integration) | xUnit v3 + `WebApplicationFactory` + Testcontainers PostgreSQL | `tests/<Name>.Api.Tests/Features/<Feature>/` |
+| Unit | xUnit v3 | `tests/<Name>.Tests/Services/`, only for service logic with real branches (pricing, rules, parsing), with hand-written fake repositories |
+| Endpoint (integration) | xUnit v3 + `WebApplicationFactory` + Testcontainers PostgreSQL | `tests/<Name>.Api.Tests/Controllers/<Resource>/` |
 | External HTTP services | a fake `HttpMessageHandler` or WireMock.Net, wired through `ConfigureTestServices` | |
 
 - Most risks in an API are caught cheapest at the endpoint level: send the HTTP request, assert on the status code, the response body and what ended up in the database.
