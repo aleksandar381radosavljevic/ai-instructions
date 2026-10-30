@@ -1,6 +1,6 @@
 # 0001. Make AGENTS.md the single source of project rules
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-05
 
 ## Context
@@ -14,7 +14,7 @@ Claude Code (v2.1.277+) reads `AGENTS.md` natively, but only when the project ha
 3. **AGENTS.md as the source, CLAUDE.md as a one-line import**: every agent reads the same rules, and Claude-only notes still have a home.
 
 ## Decision
-Option 3. Each project has an `AGENTS.md` (project rules plus the generated shared block) and a `CLAUDE.md` that starts with `@AGENTS.md`. Nested `AGENTS.md` files exist only where a folder has rules an agent can't infer, never as empty placeholders.
+Option 3. Each project has an `AGENTS.md` (project rules plus the generated shared block) and a `CLAUDE.md` that starts with `@AGENTS.md`. Nested `AGENTS.md` files exist only where a folder has rules an agent can't infer, never as empty placeholders. Accepted by the owner on 2026-10-30.
 
 ## Why
 One file to review, one place to change. The import costs nothing: Claude Code never loads `AGENTS.md` twice, and the import keeps working on versions and session types that can't read `AGENTS.md` directly.

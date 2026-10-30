@@ -1,7 +1,8 @@
 # 0002. Ship shared rules as a generated block inside each project's AGENTS.md
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-05
+- Amended by: 0007, 0012
 
 ## Context
 The same rules must reach every project and stay identical as they evolve. The earlier draft proposed copying templates with a custom CLI and writing per-version migrations (2.4.0 → 2.5.0).
@@ -13,7 +14,7 @@ The same rules must reach every project and stay identical as they evolve. The e
 4. **Generated block between markers**: the CLI owns only the text between `<!-- ai-instructions:begin -->` and `<!-- ai-instructions:end -->`; the rest of the file belongs to the project.
 
 ## Decision
-Option 4. Rules live in layers (`rules/core.md`, `rules/stacks/<stack>.md`, `rules/design/<system>.md`), and each project picks its layers in `.ai-instructions.json`. `npx ai-instructions sync` regenerates the block, and the result is committed. The package is a devDependency installed from a git tag, so `package.json` and the lockfile pin the version.
+Option 4. Rules live in layers (`rules/core.md`, `rules/stacks/<stack>.md`, `rules/design/<system>.md`), and each project picks its layers in `.ai-instructions.json`. `npx ai-instructions sync` regenerates the block, and the result is committed. The package is a devDependency installed from a git tag, so `package.json` and the lockfile pin the version. Accepted by the owner on 2026-10-30.
 
 ## Why
 Regenerating a block needs no migrations, because there is nothing to merge. Committed output means every agent and reviewer sees the exact rules in force, even before `npm install`, and rule changes show up in pull-request diffs.

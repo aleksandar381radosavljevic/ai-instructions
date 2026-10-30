@@ -101,4 +101,4 @@ These change the rules or the skills, so they are yours to decide:
 - ~~**TypeScript or JavaScript**~~: decided 2026-10-16, TypeScript with `strict` and `erasableSyntaxOnly`; see [decision 0010](decisions/0010-typescript-for-osnova-and-apps.md).
 - ~~**How do projects consume Osnova**~~: decided 2026-10-06, a package on GitHub Packages (`@aleksandar381radosavljevic/osnova-react`); see the [design-system README](https://github.com/aleksandar381radosavljevic/design-system).
 - ~~**Test runner and package manager**~~: decided 2026-10-16, Vitest and pnpm; see [decision 0011](decisions/0011-pnpm-and-vitest.md).
-- **Accept or challenge decisions 0001–0007 and 0009**: they are still `Proposed`, while the CLI is built on them. Accepting them is the step to 1.0.0.
+- ~~**Accept or challenge decisions 0001–0007 and 0009**~~: accepted 2026-10-30. The `packages` option of [decision 0007](decisions/0007-libraries-ship-their-own-agent-rules.md) waits until Osnova publishes its rules.

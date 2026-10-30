@@ -1,7 +1,8 @@
 # 0003. Skills travel with the user; rules travel with the project
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-05
+- Amended by: 0012, 0013
 
 ## Context
 Procedures (start a project, build a component, record a decision) are needed on every Claude surface the user works in: the Claude app, Cowork, and Claude Code locally and in the cloud. The earlier draft used `.claude/commands/` plus two subagents (`frontend`, `reviewer`) copied into each project.
@@ -12,7 +13,7 @@ Procedures (start a project, build a component, record a decision) are needed on
 3. **Agent Skills uploaded to the user's Claude account**: an open standard. Account skills load in the Claude app, Cowork, cloud sessions, and Claude Code when it is signed in with that account.
 
 ## Decision
-Option 3. `skills/` is the source; each skill folder is zipped and uploaded to the Claude account. Frontmatter uses only the six fields of the Agent Skills spec, because claude.ai rejects any other key; `npm run check` enforces this.
+Option 3. `skills/` is the source; each skill folder is zipped and uploaded to the Claude account. Frontmatter uses only the six fields of the Agent Skills spec, because claude.ai rejects any other key; `npm run check` enforces this. Accepted by the owner on 2026-10-30.
 
 No `frontend` subagent: the main agent already is the frontend engineer, and a subagent would only add a handoff. The one job that benefits from isolation, review, lives in the `staff-review` skill, which delegates to a fresh subagent when the environment can start one.
 
