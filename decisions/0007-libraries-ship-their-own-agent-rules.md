@@ -27,4 +27,7 @@ Rules describe a specific version of an API, so they should be released with it.
 - After a library upgrade, `sync --check` fails until `sync` runs, so CI catches stale rules.
 - The file is `ai/rules.md`, not `AGENTS.md`, so agents working on Osnova itself don't load rules meant for its consumers.
 - `rules/design/osnova.md` moves into Osnova once Osnova is published; until then it stays here.
-- The CLI gets the `packages` option, covered by smoke tests, when Osnova publishes its `ai/rules.md`; nothing consumes it before that.
+- The CLI has the `packages` option, covered by smoke tests. `init` adds every installed dependency whose `package.json` has `aiInstructions`; `sync` fails when a listed package isn't installed, has no such field, or points outside itself.
+- The library's rules file starts without a top-level heading, because `sync` adds `### <package> v<version>` above it.
+- Library rules count toward the project's 200-line `AGENTS.md` warning, not the 100-line budget of the layers here.
+- Once Osnova ships `ai/rules.md`, the `design/osnova` layer is removed in a breaking release, and projects move to `"packages": ["@aleksandar381radosavljevic/osnova-react"]`.

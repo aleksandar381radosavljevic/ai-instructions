@@ -185,6 +185,44 @@ const tests = {
     assert.equal(run(broken, 'sync').status, 1);
   },
 
+  'init lists libraries that ship rules, and sync inlines them with their version'() {
+    const lib = '@scope/ui-kit';
+    const dir = project(
+      {
+        [`node_modules/${lib}/package.json`]: JSON.stringify({ name: lib, version: '1.2.0', aiInstructions: './ai/rules.md' }),
+        [`node_modules/${lib}/ai/rules.md`]: '- Use `Icon` for every icon.\n',
+        'node_modules/plain/package.json': JSON.stringify({ name: 'plain', version: '1.0.0' }),
+      },
+      { name: 'web', dependencies: { [lib]: '1', plain: '1' } },
+    );
+    const result = run(dir, 'init');
+    ok(result);
+    assert.match(result.stdout, /Detected rules shipped by @scope\/ui-kit/);
+    assert.deepEqual(JSON.parse(read(dir, '.ai-instructions.json')).packages, [lib]);
+    assert.ok(read(dir, 'AGENTS.md').includes('### @scope/ui-kit v1.2.0\n- Use `Icon` for every icon.\n<!-- ai-instructions:end -->'));
+    ok(run(dir, 'sync', '--check'));
+
+    write(dir, `node_modules/${lib}/package.json`, JSON.stringify({ name: lib, version: '1.3.0', aiInstructions: './ai/rules.md' }));
+    assert.equal(run(dir, 'sync', '--check').status, 1);
+    ok(run(dir, 'sync'));
+    assert.ok(read(dir, 'AGENTS.md').includes('### @scope/ui-kit v1.3.0'));
+  },
+
+  'a listed package that is missing, has no rules or points outside itself fails'() {
+    const config = JSON.stringify({ layers: ['core'], packages: ['lib'] });
+    const missing = run(project({ '.ai-instructions.json': config }), 'sync');
+    assert.equal(missing.status, 1);
+    assert.match(missing.stderr, /lib isn't installed/);
+    const noRules = run(project({ '.ai-instructions.json': config, 'node_modules/lib/package.json': '{ "version": "1.0.0" }' }), 'sync');
+    assert.equal(noRules.status, 1);
+    assert.match(noRules.stderr, /no "aiInstructions" field/);
+    const outside = project({
+      '.ai-instructions.json': config,
+      'node_modules/lib/package.json': JSON.stringify({ version: '1.0.0', aiInstructions: '../../package.json' }),
+    });
+    assert.match(run(outside, 'sync').stderr, /points outside the package/);
+  },
+
   'sync without a config tells you to run init'() {
     const result = run(project(), 'sync');
     assert.equal(result.status, 1);

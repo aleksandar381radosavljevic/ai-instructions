@@ -46,7 +46,9 @@ pnpm exec ai-instructions init
 
 `init` creates `.ai-instructions.json`, `AGENTS.md`, `CLAUDE.md` (which imports `AGENTS.md`) and `.claude/settings.json`. Commit all four, then fill in the "This project" section of `AGENTS.md`.
 
-Layers start from `core`. `init` adds `stacks/react` when `react`, `react-dom` or `next` is in `package.json`, and `design/osnova` when an Osnova package is. To choose yourself, run `ai-instructions layers` and pass `--layers core,stacks/react`.
+Layers start from `core`. `init` adds `stacks/react` when `react`, `react-dom` or `next` is in `package.json`, `stacks/vue` for `vue` or `nuxt`, `stacks/dotnet` for a `Microsoft.NET.Sdk.Web` project, and `design/osnova` when an Osnova package is. To choose yourself, run `ai-instructions layers` and pass `--layers core,stacks/react`.
+
+A library can ship rules for its own API (decision 0007): it names a Markdown file in its `package.json` (`"aiInstructions": "./ai/rules.md"`) and publishes it. `init` lists every installed dependency that does so under `packages` in `.ai-instructions.json`, and `sync` adds each file to the block under a heading with the installed version, so an upgrade makes `sync --check` fail until you run `sync`. Packages must be installed before `sync`. The library's file starts without a top-level heading.
 
 `.ai-instructions.json` records the version the rules came from. Keep projects honest in CI:
 
@@ -101,4 +103,4 @@ These change the rules or the skills, so they are yours to decide:
 - ~~**TypeScript or JavaScript**~~: decided 2026-10-16, TypeScript with `strict` and `erasableSyntaxOnly`; see [decision 0010](decisions/0010-typescript-for-osnova-and-apps.md).
 - ~~**How do projects consume Osnova**~~: decided 2026-10-06, a package on GitHub Packages (`@aleksandar381radosavljevic/osnova-react`); see the [design-system README](https://github.com/aleksandar381radosavljevic/design-system).
 - ~~**Test runner and package manager**~~: decided 2026-10-16, Vitest and pnpm; see [decision 0011](decisions/0011-pnpm-and-vitest.md).
-- ~~**Accept or challenge decisions 0001–0007 and 0009**~~: accepted 2026-10-30. The `packages` option of [decision 0007](decisions/0007-libraries-ship-their-own-agent-rules.md) waits until Osnova publishes its rules.
+- ~~**Accept or challenge decisions 0001–0007 and 0009**~~: accepted 2026-10-30, with the `packages` option of [decision 0007](decisions/0007-libraries-ship-their-own-agent-rules.md) implemented.
