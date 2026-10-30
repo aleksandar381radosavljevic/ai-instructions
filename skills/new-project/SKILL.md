@@ -9,7 +9,7 @@ Goal: a running app that already follows the shared rules, so every later sessio
 
 ## 1. Ask once, all together
 - Project name, and one sentence on what it does and for whom.
-- The stack: frontend or backend, then one of the stacks that has a file in `references/` (today: [React](references/react.md) and [Vue](references/vue.md)). If the user wants a stack without a reference, say it isn't supported yet and stop; supporting it starts with a stack ADR in ai-instructions.
+- The stack: frontend or backend, then one of the stacks that has a file in `references/` (today: [React](references/react.md), [Vue](references/vue.md) and [.NET Web API](references/dotnet.md)). If the user wants a stack without a reference, say it isn't supported yet and stop; supporting it starts with a stack ADR in ai-instructions.
 - For a UI app: brand colors (at least a primary, accent optional) and the logo if there is one.
 - Anything that should differ from the standard stack.
 

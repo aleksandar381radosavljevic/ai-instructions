@@ -65,6 +65,14 @@ const tests = {
     assert.match(read(dir, 'AGENTS.md'), /### Vue/);
   },
 
+  'init detects an ASP.NET Core project without package.json'() {
+    const dir = project({ 'src/Api/Api.csproj': '<Project Sdk="Microsoft.NET.Sdk.Web"></Project>', 'tests/Api.Tests/Api.Tests.csproj': '<Project Sdk="Microsoft.NET.Sdk"></Project>' }, null);
+    const result = run(dir, 'init');
+    ok(result);
+    assert.match(result.stdout, /Detected an ASP\.NET Core project \(src\/Api\/Api\.csproj\)/);
+    assert.deepEqual(JSON.parse(read(dir, '.ai-instructions.json')).layers, ['core', 'stacks/dotnet']);
+  },
+
   'init works without package.json'() {
     const dir = project({}, null);
     ok(run(dir, 'init'));

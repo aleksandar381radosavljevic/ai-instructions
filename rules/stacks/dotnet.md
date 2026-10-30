@@ -1,0 +1,7 @@
+### .NET Web API
+- .NET 10 LTS, C# with `<Nullable>enable</Nullable>` and `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`. Format with `dotnet format` and the repo's `.editorconfig`; check with `dotnet build`, `dotnet test` and `dotnet format --verify-no-changes`.
+- One API project in layers: `Controllers/` (thin `[ApiController]` classes that only map HTTP to a service call), `Services/` (business logic behind an interface), `Repositories/` (data access), `Entities/`, `Contracts/` (request and response records) and `Data/` (the `DbContext` and migrations). Dependencies point one way: controller, service, repository. No MediatR or other mediator.
+- Request and response types are records in `Contracts/`, never EF entities. Validate input with data annotations, which `[ApiController]` checks automatically; return errors as ProblemDetails with the right status code.
+- Data access through EF Core with PostgreSQL (Npgsql), only inside repositories: one repository per aggregate with the queries it needs, never a generic `IRepository<T>`. Schema changes are EF migrations, committed with the code.
+- `async` all the way with `CancellationToken` passed through; no `.Result` or `.Wait()`. Configuration through options classes; secrets never in `appsettings*.json`.
+- Tests use xUnit v3. Endpoints are tested through `WebApplicationFactory` against a real PostgreSQL in Testcontainers, never an in-memory provider; unit tests only for logic with real branches.
