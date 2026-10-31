@@ -2,6 +2,15 @@
 
 Versions follow semver: patch for wording, minor for a new rule, skill or layer, major for a removed or changed rule that changes agent behavior.
 
+## [0.9.0](https://github.com/aleksandar381radosavljevic/ai-instructions/compare/v0.8.0...v0.9.0) (2026-10-31)
+
+
+### Features
+
+* add the .NET Web API stack ([f5b7692](https://github.com/aleksandar381radosavljevic/ai-instructions/commit/f5b7692be607aa8a5b15ad736c2939e4b03de2ed))
+* add the Vue stack ([461d2d4](https://github.com/aleksandar381radosavljevic/ai-instructions/commit/461d2d400d4a88edd53c179941cdbf1f16a4c125))
+* inline rules that libraries ship with their package ([2dc74cf](https://github.com/aleksandar381radosavljevic/ai-instructions/commit/2dc74cf845c4839083360cb88ba6efb89cef7771))
+
 ## [0.8.0](https://github.com/aleksandar381radosavljevic/ai-instructions/compare/v0.7.0...v0.8.0) (2026-10-17)
 
 
