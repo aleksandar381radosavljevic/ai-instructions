@@ -1,6 +1,6 @@
 # 0009. Design persona lives in an on-demand skill
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-16
 
 ## Context
@@ -12,7 +12,7 @@ The owner wants a "Principal Product Designer & Senior Art Director" mode to swi
 3. **A skill** (`skills/principal-designer/`): loaded only when asked for, versioned here, reaches every surface through the account upload (decision 0003).
 
 ## Decision
-Option 3.
+Option 3. Accepted by the owner on 2026-10-30.
 
 ## Why
 It costs nothing from the rules budget, is invoked explicitly ("be the principal designer", `/principal-designer`), and follows the same path as every other skill.

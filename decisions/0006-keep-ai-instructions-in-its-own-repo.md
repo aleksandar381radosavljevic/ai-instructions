@@ -1,6 +1,6 @@
 # 0006. Keep ai-instructions in its own repository
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-05
 
 ## Context
@@ -11,7 +11,7 @@ Osnova (tokens, components and docs) becomes a monorepo (Osnova decision 0001). 
 2. **Its own repository**, as today.
 
 ## Decision
-Option 2.
+Option 2. Accepted by the owner on 2026-10-30.
 
 ## Why
 - **Different consumers.** Every project uses ai-instructions, including ones without UI or Osnova. Only UI projects use Osnova.

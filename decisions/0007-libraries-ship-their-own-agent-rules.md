@@ -1,6 +1,6 @@
 # 0007. Libraries ship their own agent rules
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-05
 - Amends: 0002
 
@@ -15,7 +15,7 @@ Next.js 16.2 solved the same problem: the `next` package ships version-matched d
 3. **The library ships its rules; `sync` inlines them**: version-matched and always in context.
 
 ## Decision
-Option 3 for short rules, plus option 2 for long reference docs once they exist.
+Option 3 for short rules, plus option 2 for long reference docs once they exist. Accepted by the owner on 2026-10-30.
 - A library declares its consumer rules in `package.json` (`"aiInstructions": "./ai/rules.md"`) and publishes the file with the package.
 - A project lists the library in `.ai-instructions.json` (`"packages": ["@SCOPE/osnova-react"]`). `sync` inlines the rules from the installed version and names that version in the heading.
 - Long docs, such as a component API reference, ship as Markdown in the package and are linked from the rules, not inlined.
@@ -27,4 +27,7 @@ Rules describe a specific version of an API, so they should be released with it.
 - After a library upgrade, `sync --check` fails until `sync` runs, so CI catches stale rules.
 - The file is `ai/rules.md`, not `AGENTS.md`, so agents working on Osnova itself don't load rules meant for its consumers.
 - `rules/design/osnova.md` moves into Osnova once Osnova is published; until then it stays here.
-- The CLI needs a `packages` option, covered by smoke tests.
+- The CLI has the `packages` option, covered by smoke tests. `init` adds every installed dependency whose `package.json` has `aiInstructions`; `sync` fails when a listed package isn't installed, has no such field, or points outside itself.
+- The library's rules file starts without a top-level heading, because `sync` adds `### <package> v<version>` above it.
+- Library rules count toward the project's 200-line `AGENTS.md` warning, not the 100-line budget of the layers here.
+- Once Osnova ships `ai/rules.md`, the `design/osnova` layer is removed in a breaking release, and projects move to `"packages": ["@aleksandar381radosavljevic/osnova-react"]`.

@@ -1,7 +1,8 @@
 # 0004. Every rule earns its place; enforce with tooling where possible
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-05
+- Amended by: 0013
 
 ## Context
 Rules load into every session and cost context on every request. Claude Code's guidance is to keep an instruction file under about 200 lines, because longer files reduce adherence. Many rules in the earlier draft were defaults that agents already follow ("use functional components", "read this file", "don't expose secrets"), and they dilute the rules that matter.
@@ -11,7 +12,7 @@ Rules load into every session and cost context on every request. Claude Code's g
 2. **Only rules backed by evidence, enforced by tooling where possible.**
 
 ## Decision
-Option 2. A rule goes into a shared layer only if all three hold:
+Option 2, accepted by the owner on 2026-10-30. A rule goes into a shared layer only if all three hold:
 1. an agent got it wrong, or plausibly would;
 2. it can't be inferred from the code;
 3. tooling can't enforce it.
